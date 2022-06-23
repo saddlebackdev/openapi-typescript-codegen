@@ -73,27 +73,38 @@ const main = async () => {
         additionalModelFileExtension: true,
         additionalServiceFileExtension: true,
         removeLodashPrefixes: true,
+        username: 'roman.tech48@gmail.com',
+        password: `&cY8at<'S5PfJa#k`,
+        useEnvironment: 'dev',
+        useAutoCoreService: true,
+        useAutoEventService: false,
+        useAutoNotificationService: false,
+        useAutoWorkflowsService: false,
     };
     await OpenAPI.generateSaddlebackSpec({
-        input: './test/spec/saddlebackCoreApi.json',
-        output: './test/new/saddleback/core',
+        output: './test/auto',
         ...config,
     });
-    await OpenAPI.generateSaddlebackSpec({
-        input: './test/spec/saddlebackEventApi.json',
-        output: './test/new/saddleback/event',
-        ...config,
-    });
-    await OpenAPI.generateSaddlebackSpec({
-        input: './test/spec/saddlebackWebAppApi.json',
-        output: './test/new/saddleback/web',
-        ...config,
-    });
-    await OpenAPI.generateSaddlebackSpec({
-        input: './test/spec/saddlebackWorkflowApi.json',
-        output: './test/new/saddleback/workflow',
-        ...config,
-    });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     input: './test/spec/saddlebackCoreApi.json',
+    //     output: './test/new/saddleback/core',
+    //     ...config,
+    // });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     input: './test/spec/saddlebackEventApi.json',
+    //     output: './test/new/saddleback/event',
+    //     ...config,
+    // });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     input: './test/spec/saddlebackWebAppApi.json',
+    //     output: './test/new/saddleback/web',
+    //     ...config,
+    // });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     input: './test/spec/saddlebackWorkflowApi.json',
+    //     output: './test/new/saddleback/workflow',
+    //     ...config,
+    // });
 
     // await generateRealWorldSpecs();
 };

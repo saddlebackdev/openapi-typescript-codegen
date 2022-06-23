@@ -1,3 +1,5 @@
+import {Environment} from "../src/utils/saddleback/getUrlByServiceEnv";
+
 export declare enum HttpClient {
     FETCH = 'fetch',
     XHR = 'xhr',
@@ -34,6 +36,13 @@ export type CustomConfig = Options & {
     additionalModelFileExtension?: boolean;
     additionalServiceFileExtension?: boolean;
     removeLodashPrefixes?: boolean;
+    username: string;
+    password: string;
+    useAutoCoreService?: boolean;
+    useAutoEventService?: boolean;
+    useAutoNotificationService?: boolean;
+    useAutoWorkflowsService?: boolean;
+    useEnvironment?: Environment;
 };
 
 export declare function generate(options: Options): Promise<void>;

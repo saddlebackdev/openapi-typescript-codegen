@@ -13,6 +13,16 @@ const params = program
     .option('-i, --input <value>', 'OpenAPI specification, can be a path, url or string content (required)')
     .option('-o, --output <value>', 'Output directory (required)')
     .option('-c, --config <value>', 'Path to the config file')
+    .option('-l, --login <value>', 'Login')
+    .option('-p, --password <value>', 'Password')
+    .option('-e, --environment <value>', 'Environment')
+    .option('-uc, --useAutoCore <value>', 'Use fetching Core service swagger.json via login and password')
+    .option('-ue, --useAutoEvent <value>', 'Use fetching Event service swagger.json via login and password')
+    .option(
+        '-un, --useAutoNotification <value>',
+        'Use fetching Notification service swagger.json via login and password'
+    )
+    .option('-uw, --useAutoWorkflows <value>', 'Use fetching Workflows service swagger.json via login and password')
     .parse(process.argv)
     .opts();
 
@@ -39,6 +49,13 @@ if (OpenAPI) {
         ...config,
         input: params.input,
         output: params.output,
+        username: params.login,
+        password: params.password,
+        useEnvironment: params.environment,
+        useAutoCoreService: params.useAutoCore,
+        useAutoEventService: params.useAutoEvent,
+        useAutoNotificationService: params.useAutoNotification,
+        useAutoWorkflowsService: params.useAutoWorkflows,
     })
         .then(() => {
             process.exit(0);
