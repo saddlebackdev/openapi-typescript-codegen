@@ -70,6 +70,6 @@ export default {
         file: './dist/index.js',
         format: 'cjs',
     },
-    external: ['camelcase', 'commander', 'fs-extra', 'handlebars', 'json-schema-ref-parser'],
+    external: ['camelcase', 'commander', 'fs-extra', 'handlebars', 'json-schema-ref-parser', 'axios', 'form-data'],
     plugins: getPlugins(),
 };
