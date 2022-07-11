@@ -17,82 +17,38 @@ type Config = Options & {
     removeLodashPrefixes?: boolean;
     username: string;
     password: string;
-    useAutoCoreService?: boolean;
-    useAutoEventService?: boolean;
-    useAutoNotificationService?: boolean;
-    useAutoWorkflowsService?: boolean;
     useEnvironment?: Environment;
+    useService?: Service;
 };
 
 export const generateSaddlebackSpec = async (config: Config) => {
-    const saddlebackGenerator = async (input: string | Record<string, any>, output: string) => {
-        const openApi: OpenApi = isString(input) ? await getOpenApiSpec(input) : input;
+    const openApi: OpenApi =
+        config.useEnvironment && config.useService
+            ? await getSwaggerJsonByEnv({
+                  env: config.useEnvironment,
+                  service: config.useService,
+                  username: config.username,
+                  password: config.password,
+              })
+            : isString(config.input)
+            ? await getOpenApiSpec(config.input)
+            : config.input;
 
-        if (config.removeLodashPrefixes && openApi.components && openApi.components.schemas) {
-            const newSchemas: Dictionary<OpenApiSchema> = {};
+    if (config.removeLodashPrefixes && openApi.components && openApi.components.schemas) {
+        const newSchemas: Dictionary<OpenApiSchema> = {};
 
-            for (const schemaKey in openApi.components.schemas) {
-                if (openApi.components.schemas.hasOwnProperty(schemaKey)) {
-                    newSchemas[removeLodashPrefix(schemaKey)] = openApi.components.schemas[schemaKey];
-                }
+        for (const schemaKey in openApi.components.schemas) {
+            if (openApi.components.schemas.hasOwnProperty(schemaKey)) {
+                newSchemas[removeLodashPrefix(schemaKey)] = openApi.components.schemas[schemaKey];
             }
-
-            openApi.components.schemas = newSchemas;
         }
 
-        mapSwaggerRef(openApi, removeLodashPrefixFromRef);
+        openApi.components.schemas = newSchemas;
+    }
 
-        await generate({ ...config, input: openApi });
-    };
+    mapSwaggerRef(openApi, removeLodashPrefixFromRef);
 
-    if (!config.useEnvironment) {
-        await saddlebackGenerator(config.input, config.output);
-        return;
-    }
-    if (config.useAutoCoreService) {
-        await saddlebackGenerator(
-            await getSwaggerJsonByEnv({
-                env: config.useEnvironment,
-                service: Service.Core,
-                username: config.username,
-                password: config.password,
-            }),
-            config.output + '/core'
-        );
-    }
-    if (config.useAutoEventService) {
-        await saddlebackGenerator(
-            await getSwaggerJsonByEnv({
-                env: config.useEnvironment,
-                service: Service.Event,
-                username: config.username,
-                password: config.password,
-            }),
-            config.output + '/event'
-        );
-    }
-    if (config.useAutoNotificationService) {
-        await saddlebackGenerator(
-            await getSwaggerJsonByEnv({
-                env: config.useEnvironment,
-                service: Service.Notifications,
-                username: config.username,
-                password: config.password,
-            }),
-            config.output + '/notifications'
-        );
-    }
-    if (config.useAutoWorkflowsService) {
-        await saddlebackGenerator(
-            await getSwaggerJsonByEnv({
-                env: config.useEnvironment,
-                service: Service.Workflows,
-                username: config.username,
-                password: config.password,
-            }),
-            config.output + '/workflows'
-        );
-    }
+    await generate({ ...config, input: openApi });
 };
 
 export default generateSaddlebackSpec;

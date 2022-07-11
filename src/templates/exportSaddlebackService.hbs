@@ -1,3 +1,5 @@
+{{>header}}
+
 {{#if imports}}
 {{#each imports}}
 import type { {{{this}}} } from '../models/{{{this}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
