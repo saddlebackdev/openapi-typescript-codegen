@@ -77,9 +77,9 @@ const main = async () => {
         password: `&cY8at<'S5PfJa#k`,
         useEnvironment: 'dev',
         useAutoCoreService: true,
-        useAutoEventService: true,
-        useAutoNotificationService: true,
-        useAutoWorkflowsService: true,
+        useAutoEventService: false,
+        useAutoNotificationService: false,
+        useAutoWorkflowsService: false,
     };
     await OpenAPI.generateSaddlebackSpec({
         output: './test/auto',

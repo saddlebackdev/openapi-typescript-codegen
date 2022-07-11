@@ -24,7 +24,7 @@ export const getSwaggerJsonByEnv = async ({
     const client_id = 'cm';
     const response_type = 'token';
     const scope = 'cm-api.default';
-    const redirect_uri = (swaggerUrl.match(new RegExp(`.*\.net`)) || [])[0] + '/api-doc-auth-callback';
+    const redirect_uri = (swaggerUrl.match(new RegExp(`https://.*?/`)) || [])[0] + '/api-doc-auth-callback';
     const response_mode = 'form_post';
 
     const { state, nonce } = await getStateNonce({ url: swaggerUrl });
