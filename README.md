@@ -20,11 +20,16 @@ $ saddlebackOpenapi --help
     -i, --input <value>       OpenAPI specification, can be a path, url or string content
     -o, --output <value>      Output directory
     -c, --config <value>      Path to the config file
+    -l, --login <value>       Login
+    -p, --password <value>    Password
+    -e, --environment <value> Environment dev | stage | stage2
+    -s, --service <value>     Service 'workflows' | 'event' | 'notifications' | 'core'
     -h, --help                display help for command
 
   Examples
-    $ saddlebackOpenapi --input ./spec.json --output ./generated
-    $ saddlebackOpenapi --config ./openapi.config.json
+    $ saddlebackOpenApi --input ./spec.json --output ./generated
+    $ saddlebackOpenApi --config ./openapi.config.json
+    $ saddlebackOpenApi -o "./folderPath" -l "Login" -p "Password" -e "dev" -s "core"
 ```
 
 ## Config file
@@ -49,6 +54,30 @@ OpenAPI specification, can be a path, url or string content (required in the con
 - Type: `string`
 
 Output directory (required in the config or cmd arguments)
+
+### `login` (autofetch)
+- Default: `undefined`
+- Type: `string`
+
+Login to saddleback identity server
+
+### `password` (autofetch)
+- Default: `undefined`
+- Type: `string`
+
+Password to saddleback identity server
+
+### `environment` (autofetch)
+- Default: `undefined`
+- Type: `'dev' | 'stage' | 'stage2'`
+
+Which Environment should be used for swagger.json
+
+### `service` (autofetch)
+- Default: `undefined`
+- Type: `'workflows' | 'event' | 'notifications' | 'core'`
+
+Which service should be fetched
 
 ### `additionalModelFileExtension`
 - Default: `true`
