@@ -14,6 +14,8 @@ import { writeClientModels } from './writeClientModels';
 import { writeClientSchemas } from './writeClientSchemas';
 import { writeClientServices } from './writeClientServices';
 import { writeSaddlebackClientServices } from './writeSaddlebackClientServices';
+import { writeSaddlebackModelsIndex } from './writeSaddlebackModelsIndex';
+import { writeSaddlebackServiceIndex } from './writeSaddlebackServiceIndex';
 
 /**
  * Write our OpenAPI client, using the given templates at the given output
@@ -127,6 +129,38 @@ export const writeClient = async (
     if (isDefined(clientName)) {
         await mkdir(outputPath);
         await writeClientClass(client, templates, outputPath, httpClient, clientName, indent, postfix);
+    }
+    // write service index
+    if (exportCore || exportServices || exportSchemas || exportModels) {
+        await mkdir(outputPath);
+        await writeSaddlebackServiceIndex(
+            client,
+            templates,
+            outputPathServices,
+            useUnionTypes,
+            exportServices,
+            postfix,
+            httpClient,
+            additionalModelFileExtension,
+            additionalServiceFileExtension,
+            clientName
+        );
+    }
+    // write models index
+    if (exportCore || exportServices || exportSchemas || exportModels) {
+        await mkdir(outputPath);
+        await writeSaddlebackModelsIndex(
+            client,
+            templates,
+            outputPathModels,
+            useUnionTypes,
+            exportModels,
+            postfix,
+            httpClient,
+            additionalModelFileExtension,
+            additionalServiceFileExtension,
+            clientName
+        );
     }
 
     if (exportCore || exportServices || exportSchemas || exportModels) {

@@ -57,6 +57,7 @@ import templateExportSaddlebackService from '../templates/exportSaddlebackServic
 import templateExportSchema from '../templates/exportSchema.hbs';
 import templateExportService from '../templates/exportService.hbs';
 import templateIndex from '../templates/index.hbs';
+import templateModelsIndex from '../templates/modelsIndex.hbs';
 import partialBase from '../templates/partials/base.hbs';
 import partialExportComposition from '../templates/partials/exportComposition.hbs';
 import partialExportEnum from '../templates/partials/exportEnum.hbs';
@@ -85,10 +86,13 @@ import partialTypeInterface from '../templates/partials/typeInterface.hbs';
 import partialTypeIntersection from '../templates/partials/typeIntersection.hbs';
 import partialTypeReference from '../templates/partials/typeReference.hbs';
 import partialTypeUnion from '../templates/partials/typeUnion.hbs';
+import templateServiceIndex from '../templates/servicesIndex.hbs';
 import { registerHandlebarHelpers } from './registerHandlebarHelpers';
 
 export interface Templates {
     index: Handlebars.TemplateDelegate;
+    serviceIndex: Handlebars.TemplateDelegate;
+    modelsIndex: Handlebars.TemplateDelegate;
     client: Handlebars.TemplateDelegate;
     exports: {
         model: Handlebars.TemplateDelegate;
@@ -122,6 +126,8 @@ export const registerHandlebarTemplates = (root: {
     // Main templates (entry points for the files we write to disk)
     const templates: Templates = {
         index: Handlebars.template(templateIndex),
+        serviceIndex: Handlebars.template(templateServiceIndex),
+        modelsIndex: Handlebars.template(templateModelsIndex),
         client: Handlebars.template(templateClient),
         exports: {
             model: Handlebars.template(templateExportModel),

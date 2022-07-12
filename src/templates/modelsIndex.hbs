@@ -1,0 +1,18 @@
+{{>header}}
+
+{{#if @root.exportModels}}
+{{#if models}}
+{{#each models}}
+{{#if @root.useUnionTypes}}
+export type { {{{name}}} } from './{{camelCase name}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+{{else if enum}}
+export { {{{name}}} } from './{{camelCase name}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+{{else if enums}}
+export { {{{name}}} } from './{{camelCase name}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+{{else}}
+export type { {{{name}}} } from './{{camelCase name}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+{{/if}}
+{{/each}}
+{{/if}}
+{{/if}}
+
