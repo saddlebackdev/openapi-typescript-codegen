@@ -1,3 +1,4 @@
+import camelCase from 'camelcase';
 import { resolve } from 'path';
 
 import type { Model } from '../client/interfaces/Model';
@@ -30,7 +31,7 @@ export const writeClientModels = async (
     additionalServiceFileExtension: boolean
 ): Promise<void> => {
     for (const model of models) {
-        const file = resolve(outputPath, `${model.name}${additionalModelFileExtension ? '.models' : ''}.ts`);
+        const file = resolve(outputPath, `${camelCase(model.name)}${additionalModelFileExtension ? '.models' : ''}.ts`);
         const templateResult = templates.exports.model({
             ...model,
             httpClient,

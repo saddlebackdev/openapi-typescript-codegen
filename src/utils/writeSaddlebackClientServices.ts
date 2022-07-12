@@ -1,3 +1,4 @@
+import camelCase from 'camelcase';
 import { resolve } from 'path';
 
 import type { Service } from '../client/interfaces/Service';
@@ -39,7 +40,7 @@ export const writeSaddlebackClientServices = async (
     for (const service of services) {
         const file = resolve(
             outputPath,
-            `${service.name}${postfix}${additionalServiceFileExtension ? '.service' : ''}.ts`
+            `${camelCase(service.name)}${postfix}${additionalServiceFileExtension ? '.service' : ''}.ts`
         );
         const templateResult = templates.exports.saddlebackService({
             ...service,
