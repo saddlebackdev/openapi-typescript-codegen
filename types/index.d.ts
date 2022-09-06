@@ -43,8 +43,10 @@ export type CustomConfig = Options & {
     useAutoEventService?: boolean;
     useAutoNotificationService?: boolean;
     useAutoWorkflowsService?: boolean;
-    useEnvironment?: Environment | 'dev' | 'stage' | 'stage2';
+    useEnvironment?: Environment | 'dev' | 'stage' | 'stage2' | 'feature';
     useService?: Service | 'workflows' | 'event' | 'notifications' | 'core';
+    filterMethod: 'include' | 'exclude';
+    filterArray: string[];
 };
 
 export declare function generate(options: Options): Promise<void>;

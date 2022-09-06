@@ -75,32 +75,34 @@ const main = async () => {
         removeLodashPrefixes: true,
         username: 'roman.tech48@gmail.com',
         password: `&cY8at<'S5PfJa#k`,
-        useEnvironment: 'stage2',
+        useEnvironment: 'feature',
+        filterMethod: 'include',
     };
     // await OpenAPI.generateSaddlebackSpec({
     //     output: './test/auto',
     //     ...config,
     // });
-    await OpenAPI.generateSaddlebackSpec({
-        useService: 'core',
-        output: './auto/core',
-        ...config,
-    });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     useService: 'core',
+    //     output: './auto/core',
+    //     ...config,
+    // });
     await OpenAPI.generateSaddlebackSpec({
         useService: 'event',
-        output: './auto/event',
+        output: './auto2/event',
+        filterArray: ['/api/event/{id}'],
         ...config,
     });
-    await OpenAPI.generateSaddlebackSpec({
-        useService: 'workflows',
-        output: './auto/workflows',
-        ...config,
-    });
-    await OpenAPI.generateSaddlebackSpec({
-        useService: 'notifications',
-        output: './auto/notifications',
-        ...config,
-    });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     useService: 'workflows',
+    //     output: './auto/workflows',
+    //     ...config,
+    // });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     useService: 'notifications',
+    //     output: './auto/notifications',
+    //     ...config,
+    // });
 
     // await generateRealWorldSpecs();
 };

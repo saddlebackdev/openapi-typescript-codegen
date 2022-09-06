@@ -17,6 +17,8 @@ const params = program
     .option('-p, --password <value>', 'Password')
     .option('-e, --environment <value>', 'Environment dev | stage | stage2')
     .option('-s, --service <value>', 'Service ')
+    .option('-m, --filterMethod <value>', 'Filter method include(default) | exclude')
+    .option('-f, --filterArray <value>', 'Filter array')
     .parse(process.argv)
     .opts();
 
@@ -47,6 +49,8 @@ if (OpenAPI) {
         password: params.password,
         useEnvironment: params.environment,
         useService: params.service,
+        filterMethod: params.filterMethod,
+        filterArray: params.filterArray,
     })
         .then(() => {
             process.exit(0);

@@ -9,6 +9,7 @@ export enum Environment {
     Dev = 'dev',
     Stage = 'stage',
     Stage2 = 'stage2',
+    Feature = 'feature',
 }
 
 export const getUrlByServiceEnv = ({ env, service }: { service: Service; env: Environment }): string => {
