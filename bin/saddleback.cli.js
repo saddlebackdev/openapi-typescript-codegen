@@ -43,14 +43,14 @@ if (OpenAPI) {
         additionalServiceFileExtension: true,
         removeLodashPrefixes: true,
         ...config,
-        input: params.input,
-        output: params.output,
-        username: params.login,
-        password: params.password,
-        useEnvironment: params.environment,
-        useService: params.service,
-        filterMethod: params.filterMethod,
-        filterArray: params.filterArray,
+        input: params.input || config.input,
+        output: params.output || config.output,
+        username: params.login || config.login,
+        password: params.password || config.password,
+        useEnvironment: params.environment || config.environment,
+        useService: params.service || config.service,
+        filterMethod: params.filterMethod || config.filterMethod || 'include',
+        filterArray: params.filterArray || config.filterArray || [],
     })
         .then(() => {
             process.exit(0);
