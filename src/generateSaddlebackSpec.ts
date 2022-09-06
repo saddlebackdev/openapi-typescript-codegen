@@ -57,6 +57,11 @@ export const generateSaddlebackSpec = async (config: Config) => {
 
     const list: OpenApi = openApi;
 
+    if (!config.filterArray || config.filterArray.length === 0) {
+        await generate({ ...config, input: list });
+        return;
+    }
+
     const requiredPaths: OpenApi['paths'] = {};
 
     for (const path in list.paths) {
