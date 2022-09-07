@@ -73,8 +73,6 @@ const main = async () => {
         additionalModelFileExtension: true,
         additionalServiceFileExtension: true,
         removeLodashPrefixes: true,
-        username: 'roman.tech48@gmail.com',
-        password: `&cY8at<'S5PfJa#k`,
         useEnvironment: 'feature',
         filterMethod: 'include',
     };
