@@ -25,6 +25,8 @@ $ saddlebackOpenapi --help
     -e, --environment <value> Environment dev | stage | stage2
     -s, --service <value>     Service 'workflows' | 'event' | 'notifications' | 'core'
     -h, --help                display help for command
+    -m, --filterMethod        Filter method include(default) | exclude')
+    -f, --filterArray         Filter array
 
   Examples
     $ saddlebackOpenApi --input ./spec.json --output ./generated

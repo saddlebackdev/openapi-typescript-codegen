@@ -67,7 +67,10 @@
         "commander": "^9.3.0",
         "fs-extra": "^10.1.0",
         "handlebars": "^4.7.7",
-        "json-schema-ref-parser": "^9.0.9"
+        "json-schema-ref-parser": "^9.0.9",
+        "@rollup/plugin-commonjs": "22.0.0",
+        "@rollup/plugin-node-resolve": "13.3.0",
+        "@rollup/plugin-typescript": "8.3.2"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "13.3.7",
@@ -85,9 +88,6 @@
         "@babel/core": "7.18.2",
         "@babel/preset-env": "7.18.2",
         "@babel/preset-typescript": "7.17.12",
-        "@rollup/plugin-commonjs": "22.0.0",
-        "@rollup/plugin-node-resolve": "13.3.0",
-        "@rollup/plugin-typescript": "8.3.2",
         "@types/cross-spawn": "6.0.2",
         "@types/express": "4.17.13",
         "@types/fs-extra": "^9.0.13",
