@@ -35,6 +35,7 @@ export const writeSaddlebackClientServices = async (
     postfix: string,
     additionalModelFileExtension: boolean,
     additionalServiceFileExtension: boolean,
+    serviceName: string,
     clientName?: string
 ): Promise<void> => {
     for (const service of services) {
@@ -51,6 +52,7 @@ export const writeSaddlebackClientServices = async (
             exportClient: isDefined(clientName),
             additionalModelFileExtension,
             additionalServiceFileExtension,
+            serviceName,
         });
         await writeFile(file, i(f(templateResult), indent));
     }

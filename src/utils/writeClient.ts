@@ -56,6 +56,7 @@ export const writeClient = async (
     request?: string
 ): Promise<void> => {
     const outputPath = resolve(process.cwd(), output);
+    const serviceName = output.split('/').slice(-1)[0];
     const outputPathCore = resolve(outputPath, 'core');
     const outputPathModels = resolve(outputPath, 'models');
     const outputPathSchemas = resolve(outputPath, 'schemas');
@@ -86,6 +87,7 @@ export const writeClient = async (
                 postfix,
                 additionalModelFileExtension,
                 additionalServiceFileExtension,
+                serviceName,
                 clientName
             );
         } else {
