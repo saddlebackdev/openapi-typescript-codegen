@@ -68,9 +68,7 @@ export const fetch{{{../name}}}{{pascalCase name}} = async ({{> saddlebackParame
 	} catch (error) {
 		const axiosError = error as AxiosError;
 
-		serviceError({
-			response: axiosError.response,
-		});
+		serviceError(error);
 
 		throw new Error('{{{../name}}}Service > {{name}}');
 	}
