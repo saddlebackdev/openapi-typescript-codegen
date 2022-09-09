@@ -37,7 +37,7 @@ import getBaseConfig from '../../getBaseConfig';
  */
 
 export const fetch{{{../name}}}{{pascalCase name}} = async ({{> saddlebackParameters}}): Promise<AxiosResponse<{{>result}}>> => {
-	const setBaseConfig = getBaseConfig({
+	const setBaseConfig = await getBaseConfig({
 {{#if parametersBody}}
 		data,
 {{/if}}
