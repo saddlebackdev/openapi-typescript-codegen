@@ -16,7 +16,10 @@ const params = program
     .option('-l, --login <value>', 'Login')
     .option('-p, --password <value>', 'Password')
     .option('-e, --environment <value>', 'Environment dev | stage | stage2')
-    .option('-s, --service <value>', 'Service ')
+    .option(
+        '-s, --service <value>',
+        'Service Workflows | Events | Notifications | Core | Journey | Giving | SmallGroup'
+    )
     .option('-m, --filterMethod <value>', 'Filter method include(default) | exclude')
     .option('-f, --filterArray <value>', 'Filter array')
     .parse(process.argv)

@@ -18,12 +18,12 @@ $ saddlebackOpenapi --help
   Options:
     -V, --version             output the version number
     -i, --input <value>       OpenAPI specification, can be a path, url or string content
-    -o, --output <value>      Output directory
+    -o, --output <value>      Output directory should end with service name workflows | events | notifications | core | journey | giving | smallGroup
     -c, --config <value>      Path to the config file
     -l, --login <value>       Login
     -p, --password <value>    Password
     -e, --environment <value> Environment dev | stage | stage2
-    -s, --service <value>     Service 'workflows' | 'event' | 'notifications' | 'core'
+    -s, --service <value>     Service Service Workflows | Events | Notifications | Core | Journey | Giving | SmallGroup
     -h, --help                display help for command
     -m, --filterMethod        Filter method include(default) | exclude')
     -f, --filterArray         Filter array

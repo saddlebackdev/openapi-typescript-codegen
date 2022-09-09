@@ -1,5 +1,4 @@
-import { Service } from '../src/client/interfaces/Service';
-import { Environment } from '../src/utils/saddleback/getUrlByServiceEnv';
+import { Environment, Service } from '../src/utils/saddleback/getUrlByServiceEnv';
 
 export declare enum HttpClient {
     FETCH = 'fetch',
@@ -44,7 +43,7 @@ export type CustomConfig = Options & {
     useAutoNotificationService?: boolean;
     useAutoWorkflowsService?: boolean;
     useEnvironment?: Environment | 'dev' | 'stage' | 'stage2' | 'feature';
-    useService?: Service | 'workflows' | 'event' | 'notifications' | 'core';
+    useService?: Service | 'Workflows' | 'Events' | 'Notifications' | 'Core' | 'Journey' | 'Giving' | 'SmallGroup';
     filterMethod: 'include' | 'exclude';
     filterArray: string[];
 };
