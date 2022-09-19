@@ -51,9 +51,9 @@ export const generateSaddlebackSpec = async (config: Config) => {
         }
 
         openApi.components.schemas = newSchemas;
-    }
 
-    mapSwaggerRef(openApi, removeLodashPrefixFromRef);
+        mapSwaggerRef(openApi, removeLodashPrefixFromRef);
+    }
 
     const list: OpenApi = openApi;
 
