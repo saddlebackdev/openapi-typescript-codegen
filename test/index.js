@@ -86,9 +86,15 @@ const main = async () => {
     //     ...config,
     // });
     await OpenAPI.generateSaddlebackSpec({
-        useService: 'event',
+        useService: 'Events',
         output: './auto2/event',
-        filterArray: ['/api/event/{id}'],
+        filterMethod: "include",
+        filterArray: [
+            "/api/v2/event-public",
+            "/api/v2/event-public/cancel-reservation",
+            "/api/v2/event-public/signup",
+            "/api/v2/event-public/reserve-tickets"
+        ],
         ...config,
     });
     // await OpenAPI.generateSaddlebackSpec({
