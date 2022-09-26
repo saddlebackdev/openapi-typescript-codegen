@@ -18,13 +18,13 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 {{#each models}}
 {{#if @root.useUnionTypes}}
-export type { {{{name}}} } from './models/{{{name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+export type { {{{name}}} } from './models/{{{camelCase name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
 {{else if enum}}
-export { {{{name}}} } from './models/{{{name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+export { {{{name}}} } from './models/{{{camelCase name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
 {{else if enums}}
-export { {{{name}}} } from './models/{{{name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+export { {{{name}}} } from './models/{{{camelCase name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
 {{else}}
-export type { {{{name}}} } from './models/{{{name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+export type { {{{name}}} } from './models/{{{camelCase name}}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
 {{/if}}
 {{/each}}
 {{/if}}
@@ -33,7 +33,7 @@ export type { {{{name}}} } from './models/{{{name}}}{{#if ../additionalModelFile
 {{#if models}}
 
 {{#each models}}
-export { ${{{name}}} } from './schemas/${{{name}}}';
+export { ${{{name}}} } from './schemas/${{{camelCase name}}}';
 {{/each}}
 {{/if}}
 {{/if}}
@@ -42,9 +42,9 @@ export { ${{{name}}} } from './schemas/${{{name}}}';
 
 {{#each services}}
 {{#equals @root.httpClient 'saddleback'}}
-export * as fetch{{{name}}}{{{@root.postfix}}} from './services/{{{name}}}{{{@root.postfix}}}{{#if ../additionalServiceFileExtension}}.service{{/if}}';
+export * as fetch{{{name}}}{{{@root.postfix}}} from './services/{{{camelCase name}}}{{{@root.postfix}}}{{#if ../additionalServiceFileExtension}}.service{{/if}}';
 {{else}}
-export { {{{name}}}{{{@root.postfix}}} } from './services/{{{name}}}{{{@root.postfix}}}{{#if ../additionalServiceFileExtension}}.service{{/if}}';
+export { {{{name}}}{{{@root.postfix}}} } from './services/{{{camelCase name}}}{{{@root.postfix}}}{{#if ../additionalServiceFileExtension}}.service{{/if}}';
 {{/equals}}
 {{/each}}
 {{/if}}
