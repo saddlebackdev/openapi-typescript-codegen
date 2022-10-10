@@ -5,10 +5,28 @@
 ## Install
 
 ```
-npm install [gitUrl] --save-dev
+npm install saddleback-openapi-typescript-codegen --save-dev
 ```
 
+## Step-by-step guide based on ME app
+### auto fetch
+1. install the package
+2. create config files for every microservice that you need (put it in the root project folder for example openapiEvents.config.json)
+3. inside the config file you need to specify
+   1. output folder (for Events it would be ./src/shared/api/events)
+   2. microservice that you're specifying ("Events")
+   3. environment that using for fetch ("feature")
+   4. if you don't want to generate whole microservices, you can specify filterMethod and filterArray
+4. run the command where you should pass your login and pass from saddleback identity server `saddlebackApi --config openapiEvents.config.json --login login --password password`
+### local swagger
+1. same as above
+2. same as above
+3. addition specify the input path to the swagger.json file
+4. run the command `saddlebackApi --config openapiEvents.config.json`
+
 ## Usage
+
+Generated folders should be untouchable. Because every generate action will delete and put generated files into the output folder.
 
 ```
 $ saddlebackOpenapi --help
@@ -80,6 +98,18 @@ Which Environment should be used for swagger.json
 - Type: `'workflows' | 'event' | 'notifications' | 'core'`
 
 Which service should be fetched
+
+### `filterMethod` (autofetch)
+- Default: `include`
+- Type: `'include' | 'exclude'`
+
+Which method of sort should be applied to the filter array
+
+### `filterArray` (autofetch)
+- Default: `undefined`
+- Type: `string[]`
+
+Which services should be *included* or *excluded* to/from generated list
 
 ### `additionalModelFileExtension`
 - Default: `true`

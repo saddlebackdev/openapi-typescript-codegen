@@ -48,10 +48,10 @@ if (OpenAPI) {
         ...config,
         input: params.input || config.input,
         output: params.output || config.output,
-        username: params.login || config.username,
+        username: params.login || config.login,
         password: params.password || config.password,
-        useEnvironment: params.environment || config.useEnvironment,
-        useService: params.service || config.useService,
+        useEnvironment: params.environment || config.environment,
+        useService: params.service || config.service,
         filterMethod: params.filterMethod || config.filterMethod || 'include',
         filterArray: params.filterArray || config.filterArray || [],
     })
