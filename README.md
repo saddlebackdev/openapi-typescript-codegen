@@ -17,12 +17,16 @@ npm install saddleback-openapi-typescript-codegen --save-dev
    2. microservice that you're specifying ("Events")
    3. environment that using for fetch ("feature")
    4. if you don't want to generate whole microservices, you can specify filterMethod and filterArray
-4. run the command where you should pass your login and pass from saddleback identity server `saddlebackApi --config openapiEvents.config.json --login login --password password`
+4. create utility files that used in services
+   1. 'baseAxios' should export axios instance that be used for fetch
+   2. 'getBaseConfig' and 'serviceError' described here https://github.com/saddlebackdev/church-management/wiki/Services
+5. run the command where you should pass your login and pass from saddleback identity server `saddlebackApi --config openapiEvents.config.json --login login --password password`
 ### local swagger
 1. same as above
 2. same as above
 3. addition specify the input path to the swagger.json file
-4. run the command `saddlebackApi --config openapiEvents.config.json`
+4. same as above
+5. run the command `saddlebackApi --config openapiEvents.config.json`
 
 ## Usage
 
