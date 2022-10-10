@@ -5,10 +5,11 @@
 import type { {{{this}}} } from '../models/{{camelCase this}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
 {{/each}}
 {{/if}}
-import axios, {
+import {
 	AxiosError,
 	AxiosResponse,
 } from 'axios';
+import axios from '../../baseAxios';
 import serviceError from '../../serviceError';
 import getBaseConfig from '../../getBaseConfig';
 
