@@ -26,7 +26,7 @@ const params = program
     .opts();
 
 const OpenAPI = require(path.resolve(__dirname, '../dist/index.js'));
-const config = require(path.resolve(params.config || `./openapi.config.json`));
+const config = require(path.resolve(params.config || `openapi.config.json`));
 
 if (OpenAPI) {
     OpenAPI.generateSaddlebackSpec({
