@@ -149,7 +149,7 @@ export const writeClient = async (
         );
     }
     // write models index
-    if (exportCore || exportServices || exportSchemas || exportModels) {
+    if ((exportCore || exportServices || exportSchemas || exportModels) && httpClient !== HttpClient.SADDLEBACK) {
         await mkdir(outputPath);
         await writeSaddlebackModelsIndex(
             client,
