@@ -1,0 +1,79 @@
+{{>header}}
+
+{{#if imports}}
+{{#each imports}}
+import type { {{{this}}} } from '../models/{{camelCase this}}{{#if ../additionalModelFileExtension}}.models{{/if}}';
+{{/each}}
+{{/if}}
+import {
+	AxiosError,
+	AxiosResponse,
+} from 'axios';
+import axios from '../../baseAxios';
+import serviceError from '../../serviceError';
+import getBaseConfig from '../../getBaseConfig';
+
+{{#each operations}}
+/**
+{{#if deprecated}}
+ * @deprecated
+{{/if}}
+{{#if summary}}
+ * {{{escapeComment summary}}}
+{{/if}}
+{{#if description}}
+ * {{{escapeComment description}}}
+{{/if}}
+{{#unless @root.useOptions}}
+{{#if parameters}}
+{{#each parameters}}
+ * @param {{{name}}} {{#if description}}{{{escapeComment description}}}{{/if}}
+{{/each}}
+{{/if}}
+{{/unless}}
+{{#each results}}
+ * @returns {{{type}}} {{#if description}}{{{escapeComment description}}}{{/if}}
+{{/each}}
+ * @throws Error('{{{../name}}}Service > {{name}}')
+ */
+
+export const fetch{{{../name}}}{{pascalCase name}} = async ({{> saddlebackParameters}}): Promise<AxiosResponse<{{>result}}>> => {
+	const setBaseConfig = await getBaseConfig({
+{{#if parametersBody}}
+		data,
+{{/if}}
+{{#if parametersPath}}
+		params,
+{{else if parametersQuery}}
+		params,
+{{/if}}
+		method: '{{{method}}}',
+		url: '{{{path}}}',
+		service: '{{{pascalCase ../serviceName}}}',
+{{#if parametersBody}}
+{{#if parametersBody.mediaType}}
+		contentType: '{{{parametersBody.mediaType}}}',
+{{/if}}
+{{/if}}
+{{#if parameters}}
+		...config,
+{{/if}}
+	});
+
+	try {
+		const response: AxiosResponse<{{>result}}> = await axios({
+			...setBaseConfig,
+		});
+
+		return response;
+	} catch (error) {
+		const axiosError = error as AxiosError;
+
+		serviceError(error);
+
+		throw new Error('{{{../name}}}Service > {{name}}');
+	}
+};
+
+{{/each}}
+

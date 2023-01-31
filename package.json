@@ -1,6 +1,6 @@
 {
-    "name": "openapi-typescript-codegen",
-    "version": "0.23.0",
+    "name": "saddleback-openapi-typescript-codegen",
+    "version": "0.34.1",
     "description": "Library that generates Typescript clients based on the OpenAPI specification.",
     "author": "Ferdi Koomen",
     "homepage": "https://github.com/ferdikoomen/openapi-typescript-codegen",
@@ -34,10 +34,12 @@
     "main": "dist/index.js",
     "types": "types/index.d.ts",
     "bin": {
-        "openapi": "bin/index.js"
+        "openapi": "bin/index.js",
+        "saddlebackOpenapi": "bin/saddleback.cli.js"
     },
     "files": [
         "bin/index.js",
+        "bin/saddleback.cli.js",
         "dist/index.js",
         "types/index.d.ts"
     ],
@@ -48,6 +50,7 @@
         "release": "rollup --config --environment NODE_ENV:production",
         "validate": "tsc --project tsconfig.json --noEmit",
         "run": "node ./test/index.js",
+        "cleanRun": "npm run clean && npm run build && npm run run",
         "test": "jest --selectProjects UNIT",
         "test:update": "jest --selectProjects UNIT --updateSnapshot",
         "test:watch": "jest --selectProjects UNIT --watch",
@@ -56,7 +59,8 @@
         "eslint": "eslint .",
         "eslint:fix": "eslint . --fix",
         "prepublishOnly": "npm run clean && npm run release",
-        "codecov": "codecov --token=66c30c23-8954-4892-bef9-fbaed0a2e42b"
+        "codecov": "codecov --token=66c30c23-8954-4892-bef9-fbaed0a2e42b",
+        "prepare": "npm run release"
     },
     "dependencies": {
         "camelcase": "^6.3.0",

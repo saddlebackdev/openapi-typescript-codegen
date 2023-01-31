@@ -1,0 +1,13 @@
+{{>header}}
+
+{{#if @root.exportServices}}
+{{#if services}}
+{{#each services}}
+{{#equals @root.httpClient 'saddleback'}}
+export * as fetch{{{name}}}{{{@root.postfix}}} from './{{camelCase name}}{{{@root.postfix}}}{{#if ../additionalServiceFileExtension}}.service{{/if}}';
+{{else}}
+export { {{{name}}}{{{@root.postfix}}} } from './{{camelCase name}}{{{@root.postfix}}}{{#if ../additionalServiceFileExtension}}.service{{/if}}';
+{{/equals}}
+{{/each}}
+{{/if}}
+{{/if}}

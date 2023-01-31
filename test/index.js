@@ -57,8 +57,57 @@ const generateRealWorldSpecs = async () => {
 };
 
 const main = async () => {
-    await generate('./test/spec/v2.json', './test/generated/v2/');
-    await generate('./test/spec/v3.json', './test/generated/v3/');
+    // await generate('./test/spec/v2.json', './test/generated/v2/');
+    // await generate('./test/spec/v3.json', './test/generated/v3/');
+    const config = {
+        httpClient: 'saddleback',
+        clientName: '',
+        useOptions: true,
+        useUnionTypes: false,
+        exportCore: false,
+        exportServices: true,
+        exportModels: true,
+        exportSchemas: false,
+        indent: '4',
+        postfix: '',
+        additionalModelFileExtension: true,
+        additionalServiceFileExtension: true,
+        removeLodashPrefixes: true,
+        useEnvironment: 'feature',
+        filterMethod: 'include',
+    };
+    // await OpenAPI.generateSaddlebackSpec({
+    //     output: './test/auto',
+    //     ...config,
+    // });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     useService: 'core',
+    //     output: './auto/core',
+    //     ...config,
+    // });
+    await OpenAPI.generateSaddlebackSpec({
+        useService: 'Events',
+        output: './auto2/event',
+        filterMethod: "include",
+        filterArray: [
+            "/api/v2/event-public",
+            "/api/v2/event-public/cancel-reservation",
+            "/api/v2/event-public/signup",
+            "/api/v2/event-public/reserve-tickets"
+        ],
+        ...config,
+    });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     useService: 'workflows',
+    //     output: './auto/workflows',
+    //     ...config,
+    // });
+    // await OpenAPI.generateSaddlebackSpec({
+    //     useService: 'notifications',
+    //     output: './auto/notifications',
+    //     ...config,
+    // });
+
     // await generateRealWorldSpecs();
 };
 

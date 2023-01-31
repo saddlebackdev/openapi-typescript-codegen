@@ -21,11 +21,14 @@ describe('writeClientServices', () => {
 
         const templates: Templates = {
             index: () => 'index',
+            modelsIndex: () => 'modelsIndex',
+            serviceIndex: () => 'serviceIndex',
             client: () => 'client',
             exports: {
                 model: () => 'model',
                 schema: () => 'schema',
                 service: () => 'service',
+                saddlebackService: () => 'saddlebackService',
             },
             core: {
                 settings: () => 'settings',
@@ -39,7 +42,18 @@ describe('writeClientServices', () => {
             },
         };
 
-        await writeClientServices(services, templates, '/', HttpClient.FETCH, false, false, Indent.SPACE_4, 'Service');
+        await writeClientServices(
+            services,
+            templates,
+            '/',
+            HttpClient.FETCH,
+            false,
+            false,
+            Indent.SPACE_4,
+            'Service',
+            false,
+            false
+        );
 
         expect(writeFile).toBeCalledWith('/UserService.ts', `service${EOL}`);
     });

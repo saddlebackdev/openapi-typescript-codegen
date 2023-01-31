@@ -18,11 +18,14 @@ describe('writeClient', () => {
 
         const templates: Templates = {
             index: () => 'index',
+            modelsIndex: () => 'modelsIndex',
+            serviceIndex: () => 'serviceIndex',
             client: () => 'client',
             exports: {
                 model: () => 'model',
                 schema: () => 'schema',
                 service: () => 'service',
+                saddlebackService: () => 'saddlebackService',
             },
             core: {
                 settings: () => 'settings',
@@ -49,6 +52,8 @@ describe('writeClient', () => {
             true,
             Indent.SPACE_4,
             'Service',
+            false,
+            false,
             'AppClient'
         );
 

@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 
 import type { Client } from '../client/interfaces/Client';
-import type { HttpClient } from '../HttpClient';
+import { HttpClient } from '../HttpClient';
 import type { Indent } from '../Indent';
 import { mkdir, rmdir } from './fileSystem';
 import { isDefined } from './isDefined';
@@ -13,6 +13,9 @@ import { writeClientIndex } from './writeClientIndex';
 import { writeClientModels } from './writeClientModels';
 import { writeClientSchemas } from './writeClientSchemas';
 import { writeClientServices } from './writeClientServices';
+import { writeSaddlebackClientServices } from './writeSaddlebackClientServices';
+import { writeSaddlebackModelsIndex } from './writeSaddlebackModelsIndex';
+import { writeSaddlebackServiceIndex } from './writeSaddlebackServiceIndex';
 
 /**
  * Write our OpenAPI client, using the given templates at the given output
@@ -29,6 +32,8 @@ import { writeClientServices } from './writeClientServices';
  * @param exportSchemas Generate schemas
  * @param indent Indentation options (4, 2 or tab)
  * @param postfix Service name postfix
+ * @param additionalModelFileExtension Add file extension for models *.models.*
+ * @param additionalServiceFileExtension Add file extension for service *.service.*
  * @param clientName Custom client class name
  * @param request Path to custom request file
  */
@@ -45,10 +50,13 @@ export const writeClient = async (
     exportSchemas: boolean,
     indent: Indent,
     postfix: string,
+    additionalModelFileExtension: boolean,
+    additionalServiceFileExtension: boolean,
     clientName?: string,
     request?: string
 ): Promise<void> => {
     const outputPath = resolve(process.cwd(), output);
+    const serviceName = output.split('/').slice(-1)[0];
     const outputPathCore = resolve(outputPath, 'core');
     const outputPathModels = resolve(outputPath, 'models');
     const outputPathSchemas = resolve(outputPath, 'schemas');
@@ -67,17 +75,36 @@ export const writeClient = async (
     if (exportServices) {
         await rmdir(outputPathServices);
         await mkdir(outputPathServices);
-        await writeClientServices(
-            client.services,
-            templates,
-            outputPathServices,
-            httpClient,
-            useUnionTypes,
-            useOptions,
-            indent,
-            postfix,
-            clientName
-        );
+        if (httpClient === HttpClient.SADDLEBACK) {
+            await writeSaddlebackClientServices(
+                client.services,
+                templates,
+                outputPathServices,
+                httpClient,
+                useUnionTypes,
+                useOptions,
+                indent,
+                postfix,
+                additionalModelFileExtension,
+                additionalServiceFileExtension,
+                serviceName,
+                clientName
+            );
+        } else {
+            await writeClientServices(
+                client.services,
+                templates,
+                outputPathServices,
+                httpClient,
+                useUnionTypes,
+                useOptions,
+                indent,
+                postfix,
+                additionalModelFileExtension,
+                additionalServiceFileExtension,
+                clientName
+            );
+        }
     }
 
     if (exportSchemas) {
@@ -89,15 +116,56 @@ export const writeClient = async (
     if (exportModels) {
         await rmdir(outputPathModels);
         await mkdir(outputPathModels);
-        await writeClientModels(client.models, templates, outputPathModels, httpClient, useUnionTypes, indent);
+        await writeClientModels(
+            client.models,
+            templates,
+            outputPathModels,
+            httpClient,
+            useUnionTypes,
+            indent,
+            additionalModelFileExtension,
+            additionalServiceFileExtension
+        );
     }
 
     if (isDefined(clientName)) {
         await mkdir(outputPath);
         await writeClientClass(client, templates, outputPath, httpClient, clientName, indent, postfix);
     }
-
+    // write service index
     if (exportCore || exportServices || exportSchemas || exportModels) {
+        await mkdir(outputPath);
+        await writeSaddlebackServiceIndex(
+            client,
+            templates,
+            outputPathServices,
+            useUnionTypes,
+            exportServices,
+            postfix,
+            httpClient,
+            additionalModelFileExtension,
+            additionalServiceFileExtension,
+            clientName
+        );
+    }
+    // write models index
+    if ((exportCore || exportServices || exportSchemas || exportModels) && httpClient !== HttpClient.SADDLEBACK) {
+        await mkdir(outputPath);
+        await writeSaddlebackModelsIndex(
+            client,
+            templates,
+            outputPathModels,
+            useUnionTypes,
+            exportModels,
+            postfix,
+            httpClient,
+            additionalModelFileExtension,
+            additionalServiceFileExtension,
+            clientName
+        );
+    }
+
+    if (exportCore || exportServices || exportSchemas || (exportModels && httpClient !== HttpClient.SADDLEBACK)) {
         await mkdir(outputPath);
         await writeClientIndex(
             client,
@@ -109,6 +177,9 @@ export const writeClient = async (
             exportModels,
             exportSchemas,
             postfix,
+            httpClient,
+            additionalModelFileExtension,
+            additionalServiceFileExtension,
             clientName
         );
     }

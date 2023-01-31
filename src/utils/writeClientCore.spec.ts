@@ -20,11 +20,14 @@ describe('writeClientCore', () => {
 
         const templates: Templates = {
             index: () => 'index',
+            modelsIndex: () => 'modelsIndex',
+            serviceIndex: () => 'serviceIndex',
             client: () => 'client',
             exports: {
                 model: () => 'model',
                 schema: () => 'schema',
                 service: () => 'service',
+                saddlebackService: () => 'saddlebackService',
             },
             core: {
                 settings: () => 'settings',

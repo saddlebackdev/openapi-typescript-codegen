@@ -53,9 +53,11 @@ import xhrGetResponseHeader from '../templates/core/xhr/getResponseHeader.hbs';
 import xhrRequest from '../templates/core/xhr/request.hbs';
 import xhrSendRequest from '../templates/core/xhr/sendRequest.hbs';
 import templateExportModel from '../templates/exportModel.hbs';
+import templateExportSaddlebackService from '../templates/exportSaddlebackService.hbs';
 import templateExportSchema from '../templates/exportSchema.hbs';
 import templateExportService from '../templates/exportService.hbs';
 import templateIndex from '../templates/index.hbs';
+import templateModelsIndex from '../templates/modelsIndex.hbs';
 import partialBase from '../templates/partials/base.hbs';
 import partialExportComposition from '../templates/partials/exportComposition.hbs';
 import partialExportEnum from '../templates/partials/exportEnum.hbs';
@@ -67,6 +69,7 @@ import partialIsReadOnly from '../templates/partials/isReadOnly.hbs';
 import partialIsRequired from '../templates/partials/isRequired.hbs';
 import partialParameters from '../templates/partials/parameters.hbs';
 import partialResult from '../templates/partials/result.hbs';
+import saddlebackParameters from '../templates/partials/saddlebackParameters.hbs';
 import partialSchema from '../templates/partials/schema.hbs';
 import partialSchemaArray from '../templates/partials/schemaArray.hbs';
 import partialSchemaComposition from '../templates/partials/schemaComposition.hbs';
@@ -83,15 +86,19 @@ import partialTypeInterface from '../templates/partials/typeInterface.hbs';
 import partialTypeIntersection from '../templates/partials/typeIntersection.hbs';
 import partialTypeReference from '../templates/partials/typeReference.hbs';
 import partialTypeUnion from '../templates/partials/typeUnion.hbs';
+import templateServiceIndex from '../templates/servicesIndex.hbs';
 import { registerHandlebarHelpers } from './registerHandlebarHelpers';
 
 export interface Templates {
     index: Handlebars.TemplateDelegate;
+    serviceIndex: Handlebars.TemplateDelegate;
+    modelsIndex: Handlebars.TemplateDelegate;
     client: Handlebars.TemplateDelegate;
     exports: {
         model: Handlebars.TemplateDelegate;
         schema: Handlebars.TemplateDelegate;
         service: Handlebars.TemplateDelegate;
+        saddlebackService: Handlebars.TemplateDelegate;
     };
     core: {
         settings: Handlebars.TemplateDelegate;
@@ -119,11 +126,14 @@ export const registerHandlebarTemplates = (root: {
     // Main templates (entry points for the files we write to disk)
     const templates: Templates = {
         index: Handlebars.template(templateIndex),
+        serviceIndex: Handlebars.template(templateServiceIndex),
+        modelsIndex: Handlebars.template(templateModelsIndex),
         client: Handlebars.template(templateClient),
         exports: {
             model: Handlebars.template(templateExportModel),
             schema: Handlebars.template(templateExportSchema),
             service: Handlebars.template(templateExportService),
+            saddlebackService: Handlebars.template(templateExportSaddlebackService),
         },
         core: {
             settings: Handlebars.template(templateCoreSettings),
@@ -147,6 +157,7 @@ export const registerHandlebarTemplates = (root: {
     Handlebars.registerPartial('isReadOnly', Handlebars.template(partialIsReadOnly));
     Handlebars.registerPartial('isRequired', Handlebars.template(partialIsRequired));
     Handlebars.registerPartial('parameters', Handlebars.template(partialParameters));
+    Handlebars.registerPartial('saddlebackParameters', Handlebars.template(saddlebackParameters));
     Handlebars.registerPartial('result', Handlebars.template(partialResult));
     Handlebars.registerPartial('schema', Handlebars.template(partialSchema));
     Handlebars.registerPartial('schemaArray', Handlebars.template(partialSchemaArray));

@@ -1,3 +1,4 @@
+import camelCase from 'camelcase';
 import { resolve } from 'path';
 
 import type { Service } from '../client/interfaces/Service';
@@ -23,7 +24,7 @@ import type { Templates } from './registerHandlebarTemplates';
  * @param additionalServiceFileExtension Add file extension for service *.service.*
  * @param clientName Custom client class name
  */
-export const writeClientServices = async (
+export const writeSaddlebackClientServices = async (
     services: Service[],
     templates: Templates,
     outputPath: string,
@@ -34,14 +35,15 @@ export const writeClientServices = async (
     postfix: string,
     additionalModelFileExtension: boolean,
     additionalServiceFileExtension: boolean,
+    serviceName: string,
     clientName?: string
 ): Promise<void> => {
     for (const service of services) {
         const file = resolve(
             outputPath,
-            `${service.name}${postfix}${additionalServiceFileExtension ? '.service' : ''}.ts`
+            `${camelCase(service.name)}${postfix}${additionalServiceFileExtension ? '.service' : ''}.ts`
         );
-        const templateResult = templates.exports.service({
+        const templateResult = templates.exports.saddlebackService({
             ...service,
             httpClient,
             useUnionTypes,
@@ -50,6 +52,7 @@ export const writeClientServices = async (
             exportClient: isDefined(clientName),
             additionalModelFileExtension,
             additionalServiceFileExtension,
+            serviceName,
         });
         await writeFile(file, i(f(templateResult), indent));
     }
